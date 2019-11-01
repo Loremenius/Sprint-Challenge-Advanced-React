@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios"
 import PlayerCard from "./PlayerCard"
+import Navbar from "./Navbar";
 
 class PlayerList extends React.Component{
     constructor(){
@@ -25,6 +26,7 @@ class PlayerList extends React.Component{
     render(){
         return(
             <div className="cardList">
+                <Navbar/>
                 {this.state.playerList.map((item,index)=>(
                     <PlayerCard key={index} name={item.name} country={item.country} searches={item.searches}/>
                 ))}
