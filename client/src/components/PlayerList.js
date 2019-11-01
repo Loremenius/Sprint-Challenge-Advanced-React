@@ -7,7 +7,9 @@ class PlayerList extends React.Component{
     constructor(){
         super();
         this.state = {
-            playerList : []
+            originalPlayerList : [],
+            viewedPlayerList : [],
+            sortedPlayerList:[]
         }
     }
 
@@ -15,19 +17,26 @@ class PlayerList extends React.Component{
         axios.get("http://localhost:5000/api/players")
             .then((response)=>{
               this.setState({
-                  playerList : response.data
+                originalPlayerList : response.data,
+                viewedPlayerList: response.data,
               })  
+              
             })
             .catch((error)=>{
                 console.log(error);
             })
     }
+    changeList(array){
+        this.setState({
+            viewedPlayerList: array
+        });
+    }
 
     render(){
         return(
             <div className="cardList">
-                <Navbar/>
-                {this.state.playerList.map((item,index)=>(
+                <Navbar ogList = {this.state.originalPlayerList} changeList = {this.changeList}/>
+                {this.state.viewedPlayerList.map((item,index)=>(
                     <PlayerCard key={index} name={item.name} country={item.country} searches={item.searches}/>
                 ))}
             </div>
